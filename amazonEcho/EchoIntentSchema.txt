@@ -1,0 +1,31 @@
+{
+  "intents": [
+    {
+      "intent": "TrackSpeaker",
+      "slots": [
+        {
+          "name": "track",
+          "type": "LIST_OF_TRACKS"
+        }
+      ]
+    },
+    {
+      "intent": "NextTrack",
+      "slots": [
+        {
+          "name": "speaker",
+          "type": "LIST_OF_SPEAKERS"
+        }
+      ]
+    },
+    {
+      "intent": "NextSpeaker",
+      "slots": [
+        {
+          "name": "speaker",
+          "type": "LIST_OF_SPEAKERS"
+        }
+      ]
+    }
+  ]
+}
