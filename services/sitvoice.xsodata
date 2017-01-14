@@ -1,0 +1,3 @@
+service {
+       "SITSPEECH.data::Entities.Agenda" as "Agenda";
+}

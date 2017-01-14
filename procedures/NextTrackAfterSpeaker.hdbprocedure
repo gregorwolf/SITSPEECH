@@ -1,0 +1,50 @@
+PROCEDURE "SITSPEECH"."SITSPEECH.procedures::NextTrackAfterSpeaker" 
+    (  
+        IN speaker VARCHAR(40),
+        OUT speaker_not_found VARCHAR(1),
+        OUT next_track_not_found VARCHAR(1)
+    ) 
+   LANGUAGE SQLSCRIPT
+   SQL SECURITY INVOKER
+   READS SQL DATA AS
+BEGIN
+
+
+    DECLARE v_id        VARCHAR(20);
+    DECLARE v_track     VARCHAR(20);
+    DECLARE v_speaker   VARCHAR(20);
+    DECLARE v_next      VARCHAR(1);
+    
+    DECLARE CURSOR c_agendaSpeaker FOR SELECT TRACK FROM "SITSPEECH.data::Entities.Agenda" WHERE SPEAKER = :speaker ORDER BY TRACK, TIMESTAMP; 
+    DECLARE CURSOR c_agendaTrack(track VARCHAR(3)) FOR SELECT ID, SPEAKER FROM "SITSPEECH.data::Entities.Agenda" WHERE TRACK = :track ORDER BY TRACK, TIMESTAMP;
+
+    OPEN c_agendaSpeaker;
+    FETCH c_agendaSpeaker INTO v_track;
+    IF c_agendaSpeaker::NOTFOUND THEN
+     speaker_not_found = 'X';
+     CLOSE c_agendaSpeaker;
+    ELSE
+
+    v_next = 'n';
+    v_id = '';
+    FOR c_track as c_agendaTrack(:v_track)  DO
+        IF v_next = 'y' AND c_track.SPEAKER != 'SAP'  THEN
+            v_id = c_track.ID;
+			BREAK; 
+		END IF;
+		IF c_track.SPEAKER = :speaker THEN
+            v_next = 'y';
+		END IF;
+    END FOR;
+    IF v_id = '' THEN
+    next_track_not_found = 'X';
+    ELSE
+    SELECT * FROM "SITSPEECH.data::Entities.Agenda" 
+             WHERE ID = :v_id;
+    END IF;
+    CLOSE c_agendaSpeaker;
+    END IF;
+
+        
+        
+END
