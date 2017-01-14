@@ -1,0 +1,35 @@
+namespace SITSPEECH.data;
+using SITSPEECH.data::Types.SDate;
+using SITSPEECH.data::Types.LString;
+using SITSPEECH.data::Types.SString;
+
+@Schema : 'SITSPEECH'
+
+context Entities {
+
+
+
+@Catalog.tableType : #COLUMN
+Entity Agenda {
+    key ID: Integer;
+    TIMESTAMP: SDate;
+    TITLE: LString;
+    TRACK: SString;
+    SPEAKER: SString;
+    DURATION: Integer;
+  };
+  
+@Catalog.tableType : #COLUMN
+Entity EchoFeedback {
+    key ID: Integer;
+    TIMESTAMP: SDate;
+    TITLE: LString;
+    TRACK: SString;
+    SPEAKER: SString;
+    DURATION: Integer;
+  };
+
+
+};
+
+

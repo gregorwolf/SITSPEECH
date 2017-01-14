@@ -1,0 +1,23 @@
+namespace SITSPEECH.data;
+
+@Schema : 'SITSPEECH'
+
+context Types {
+    type SDate: UTCTimestamp;
+    type SString: String(40);
+    type LString: String(255);
+
+    type HttpErrorType {
+        HTTP_STATUS_CODE: String(4);
+        ERROR_MESSAGE: String(255);
+    };
+
+    type AgendaType {
+        ID: Integer;
+        TIMESTAMP: SDate;
+        TITLE: LString;
+        TRACK: SString;
+        SPEAKER: SString;
+        DURATION: Integer;
+    };
+};
