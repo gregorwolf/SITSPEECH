@@ -1,0 +1,5 @@
+import = [{
+    cdstable = "SITSPEECH.data::Entities.Agenda";
+    file ="SITSPEECH.data.import:sample_data.csv";
+    header = false;
+}];
